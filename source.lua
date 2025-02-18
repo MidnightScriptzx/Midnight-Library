@@ -799,29 +799,29 @@ function Library:create(options)
 		TextXAlignment = Enum.TextXAlignment.Left
 	})
 
-	local timeDisplay = profile:object("TextLabel", {
-		BackgroundTransparency = 1,
-		Position = UDim2.new(0, 105, 1, -10),
-		Size = UDim2.new(0, 400,0, 20),
-		AnchorPoint = Vector2.new(0, 1),
-		Theme = {TextColor3 = {"WeakText", -20}},
-		TextScaled = true,
-		TextXAlignment = Enum.TextXAlignment.Left,
-		Text = tostring(os.date("%X")):sub(1, os.date("%X"):len()-3)
-	})
-
-	do
-		local desiredInterval = 1
-		local counter = 0
-		RunService.Heartbeat:Connect(function(step)
-			counter += step  
-			if counter >= desiredInterval then
-				counter -= desiredInterval
-				local date = tostring(os.date("%X"))
-				timeDisplay.Text = date:sub(1, date:len()-3)
-			end
-		end)
-	end
+    local timeDisplay = profile:object("TextLabel", {
+        BackgroundTransparency = 1,
+        Position = UDim2.new(0, 105, 1, -10),
+        Size = UDim2.new(0, 400, 0, 20),
+        AnchorPoint = Vector2.new(0, 1),
+        Theme = {TextColor3 = {"WeakText", -20}},
+        TextScaled = true,
+        TextXAlignment = Enum.TextXAlignment.Left,
+        Text = os.date("%I:%M %p")
+    })
+    
+    do
+        local desiredInterval = 1
+        local counter = 0
+        RunService.Heartbeat:Connect(function(step)
+            counter += step  
+            if counter >= desiredInterval then
+                counter -= desiredInterval
+                timeDisplay.Text = os.date("%I:%M %p")
+            end
+        end)
+    end
+    
 
 	local settingsTabIcon = profile:object("ImageButton", {
 		BackgroundTransparency = 1,
